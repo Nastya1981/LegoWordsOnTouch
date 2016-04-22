@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 a5f1149153b7967406fff546da1de0ccf9791ddd Nastya1981 <koshka_nastya@mail.ru> 1460498010 +0300	commit (initial): Initial commit
+a5f1149153b7967406fff546da1de0ccf9791ddd 3118bfeded242325cdb3c1d396345c9677a6d9da Nastya1981 <koshka_nastya@mail.ru> 1460502451 +0300	commit: перемешивание букв
+3118bfeded242325cdb3c1d396345c9677a6d9da e0fb189eef99a0c0c043661d81225c33f16f81b7 Nastya1981 <koshka_nastya@mail.ru> 1460759313 +0300	commit: перемешанные буквы
+e0fb189eef99a0c0c043661d81225c33f16f81b7 2c508123d52f8b8121a6a038db19de77a36b31f9 Nastya1981 <koshka_nastya@mail.ru> 1460760101 +0300	commit: позиция буквы в слове
+2c508123d52f8b8121a6a038db19de77a36b31f9 b590aed8bb629a085976428a295a365127d7713f Nastya1981 <koshka_nastya@mail.ru> 1461151145 +0300	commit: last version
+b590aed8bb629a085976428a295a365127d7713f 117f69b3ed512880efc1ab4ffd9e2d8654a6fa7b Nastya1981 <koshka_nastya@mail.ru> 1461191911 +0300	commit: attempt to do onTouch for LinearLayout
+117f69b3ed512880efc1ab4ffd9e2d8654a6fa7b 77e9eb4dc975687b7ba0aa14170872074bd8810b Nastya1981 <koshka_nastya@mail.ru> 1461192033 +0300	rebase finished: refs/heads/master onto 3e301f3657e9dc8147ed6a180c3e8c184b4172fd
+77e9eb4dc975687b7ba0aa14170872074bd8810b e108f2d192f5b36c45c595970bd7e4bd0d00784d Nastya1981 <koshka_nastya@mail.ru> 1461221437 +0300	commit: attempt to do onTouch for LinearLayout
