@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="images">
-        <item>fox</item>
-        <item>duck</item>
-        <item>cock</item>
+        <item>fox.jpg</item>
+        <item>duck.jpg</item>
+        <item>cock.jpg</item>
     </string-array>
     <string-array name="words">
         <item>ЛИСА</item>
