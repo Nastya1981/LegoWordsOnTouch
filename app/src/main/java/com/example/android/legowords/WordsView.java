@@ -1,10 +1,12 @@
 package com.example.android.legowords;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,19 +27,20 @@ public class WordsView extends RelativeLayout {
     private String[] mArrayWords;
     private String[] mArrayImages;
 
-    private int mcountLetter = 0;
     private LayoutInflater mInflater;
 
-    private int mPlaceSize;
+   // private int mPlaceSize;
     String printWord = "";
     String mWord;
     int mWordLength;
     char[] chars;
     TextView[] mLetters;
 
-    TextView txt2;
     private int _xDelta;
     private int _yDelta;
+
+    private Button btnOk;
+    private float mY;
 
     public WordsView(Context context) {
         super(context);
@@ -64,8 +67,11 @@ public class WordsView extends RelativeLayout {
 
         mArrayWords = getResources().getStringArray(R.array.words);
         mArrayImages = getResources().getStringArray(R.array.images);
-            /*???*/
-        mcountLetter = 0;
+
+        btnOk = (Button)mInflater.inflate(R.layout.container_for_letter,null);
+        Drawable d = getResources().getDrawable(R.drawable.ok);
+        btnOk.setBackgroundDrawable(d);
+        btnOk.setOnClickListener(oclBtnOk);
     }
 
     public void legoWord(){
@@ -82,10 +88,10 @@ public class WordsView extends RelativeLayout {
         createContainerForLetters();
     }
 
-    private void setImageView(String image){
+    private void setImageView(String image) {
         mImageView.setImageResource(this
                 .getResources()
-                .getIdentifier(mArrayImages[mLevel], "drawable", getContext()
+                .getIdentifier(image, "drawable", getContext()
                         .getPackageName()));
         mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
@@ -102,6 +108,7 @@ public class WordsView extends RelativeLayout {
             mMainRelativeLayout.addView(letter);
             letter.setX(x);
             letter.setY(750);
+            mY = letter.getY();
             x += 110;
         }
     }
@@ -125,26 +132,22 @@ public class WordsView extends RelativeLayout {
         mContainerForLetters = new TextView[mWordLength];
         TextView containerForLetters;
         for (int i = 0; i < mContainerForLetters.length; i++) {
-            mContainerForLetters[i] = (TextView)mInflater.inflate(R.layout.letter,null);
+            mContainerForLetters[i] = (TextView)mInflater.inflate(R.layout.container_for_letter,null);
             containerForLetters = mContainerForLetters[i];
-            //containerForLetters.setBackgroundResource(R.drawable.roundrect);
-            // mLinearLayoutForLetters.addView(containerForLetters);
-            /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mPlaceSize,mPlaceSize);
-            params.leftMargin = 10;
-            params.rightMargin = 10;*/
             mLinearLayoutForLetters.addView(containerForLetters);
         }
     }
-    private void equalsLetters(char letterInWord, char TextViewLetter, TextView containerLetter, TextView letter){
+
+    private void equalsLetters(char TextViewLetter, TextView containerLetter, TextView letter){
+        char letterInWord = chars[printWord.length()];
         if (letterInWord == TextViewLetter) {
             containerLetter.setText(letter.getText());
-            mcountLetter++;
+            containerLetter.setBackgroundColor(0xffff00);
             printWord += letter.getText().toString();
             mMainRelativeLayout.removeView(letter);
             if (printWord.length() == mWord.length()) {
-                if (mLevel != 2) {
-                    mLevel++;
-                    legoWord();
+                if (mLevel < 2) {
+                    mLinearLayoutForLetters.addView(btnOk);
                 }
             }
         }
@@ -153,7 +156,7 @@ public class WordsView extends RelativeLayout {
     private OnTouchListener mOnTouchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            int access = 25;
+            int access = 50;
             TextView letter = (TextView) view;
             final int X = (int) event.getRawX();
             final int Y = (int) event.getRawY();
@@ -167,10 +170,8 @@ public class WordsView extends RelativeLayout {
                     TextView containerLetter = mContainerForLetters[printWord.length()];
                     if ((view.getY() < mLinearLayoutForLetters.getY() && view.getY() + access >= mLinearLayoutForLetters.getY()) || (view.getY() > mLinearLayoutForLetters.getY() && view.getY() - access <= mLinearLayoutForLetters.getY())) {
                        if ((view.getX() < containerLetter.getX() && view.getX() + access >= containerLetter.getX()) || (view.getX() > containerLetter.getX() && view.getX() - access <= containerLetter.getX())) {
-                            char letterInWord = chars[printWord.length()];
                             char TextViewLetter = letter.getText().charAt(0);
-                            equalsLetters(letterInWord, TextViewLetter, containerLetter, letter);
-                            //   Toast.makeText(this, "Catch!", Toast.LENGTH_LONG).show();
+                            equalsLetters(TextViewLetter, containerLetter, letter);
                         }
                     }
                     break;
@@ -189,6 +190,14 @@ public class WordsView extends RelativeLayout {
             }
             mMainRelativeLayout.invalidate();
             return true;
+        }
+    };
+
+    OnClickListener oclBtnOk = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mLevel++;
+            legoWord();
         }
     };
 
